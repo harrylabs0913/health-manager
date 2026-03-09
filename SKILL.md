@@ -1,3 +1,8 @@
+---
+name: health-manager
+description: "Health data management system for tracking blood pressure, heart rate, exercise, and medication. Use when: (1) recording daily health metrics like blood pressure and heart rate, (2) tracking exercise activities and workouts, (3) managing medication schedules and reminders, (4) generating health reports and trend analysis, (5) monitoring health goals and progress. 适用场景：记录血压心率等健康指标、追踪运动锻炼、管理用药提醒、生成健康报告和趋势分析、监测健康目标。"
+---
+
 # Health Manager - 健康管理
 
 综合健康数据管理系统，记录和分析血压、心率、运动等健康数据。
@@ -154,7 +159,7 @@ health status
 health data path
 ```
 
-默认位置: `~/.config/health-manager/health.db`
+默认位置：`~/.config/health-manager/health.db`
 
 ## 技术栈
 
@@ -205,10 +210,10 @@ health data path
 
 ## 血压参考标准
 
-| 分类 | 收缩压(mmHg) | 舒张压(mmHg) |
+| 分类 | 收缩压 (mmHg) | 舒张压 (mmHg) |
 |------|-------------|-------------|
 | 正常 | < 120 | < 80 |
 | 正常偏高 | 120-129 | < 80 |
 | 高血压前期 | 130-139 | 80-89 |
-| 高血压1级 | 140-159 | 90-99 |
-| 高血压2级 | ≥ 160 | ≥ 100 |
+| 高血压 1 级 | 140-159 | 90-99 |
+| 高血压 2 级 | ≥ 160 | ≥ 100 |

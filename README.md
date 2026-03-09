@@ -3,54 +3,21 @@
 > 智能健康数据管理助手，让健康管理更简单
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/your-repo/health-manager)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/harrylabs0913/health-manager)
+[![Clawhub](https://img.shields.io/badge/clawhub-health--manager-purple.svg)](https://clawhub.com/skills/health-manager)
 
 ---
 
 ## 项目简介
 
-**Health Manager** 是一个命令行健康数据管理工具，帮助你轻松记录、分析和理解自己的健康数据。无论是血压监测、心率跟踪，还是运动记录和用药管理，Health Manager 都能提供简洁高效的管理体验。
+**Health Manager** 是一个命令行健康数据管理工具，帮助你轻松记录和分析自己的健康数据。无论是血压监测、心率跟踪，还是运动记录和用药管理，Health Manager 都能提供简洁高效的管理体验。
 
 ### ✨ 核心价值
 
-- **简化记录** - 一条命令完成数据录入，支持简写和快捷方式
+- **简化记录** - 一条命令完成数据录入
 - **智能分析** - 自动生成趋势分析，识别健康模式
 - **个性化报告** - 生成专属健康手册，方便与医生分享
 - **贴心提醒** - 用药、监测、运动提醒，养成健康习惯
-
----
-
-## 功能特性
-
-### 📊 健康数据记录
-
-| 数据类型 | 支持字段 | 快捷命令 |
-|---------|---------|---------|
-| 血压 | 收缩压、舒张压、脉搏、体位、手臂 | `health-manager record bp` |
-| 心率 | 心率值、活动状态、设备来源 | `health-manager record hr` |
-| 运动 | 类型、时长、距离、卡路里、心率 | `health-manager record ex` |
-| 用药 | 药品名称、剂量、服药时间、备注 | `health-manager record med` |
-
-### 📈 趋势分析
-
-- **可视化图表** - 血压、心率、运动趋势一目了然
-- **智能识别** - 自动识别异常数据和健康模式
-- **对比分析** - 周期对比，了解健康变化趋势
-- **目标追踪** - 对照个人健康目标，追踪完成情况
-
-### ⏰ 智能提醒
-
-- **用药提醒** - 定时提醒服药，支持多次和周期设置
-- **监测提醒** - 血压、心率测量提醒
-- **运动提醒** - 运动计划提醒，养成运动习惯
-- **异常预警** - 数据异常时主动提醒
-
-### 📖 健康手册
-
-- **月度报告** - 汇总当月数据，分析健康状态
-- **季度总结** - 更长周期的趋势分析
-- **年度总览** - 全年健康数据全景展示
-- **多种格式** - 支持 PDF、HTML、Markdown 输出
 
 ---
 
@@ -59,225 +26,270 @@
 ### 安装
 
 ```bash
-# 克隆仓库
-git clone https://github.com/your-repo/health-manager.git
+# 从 Clawhub 安装
+clawhub install health-manager
+
+# 或从 GitHub 安装
+git clone https://github.com/harrylabs0913/health-manager.git
 cd health-manager
-
-# 安装依赖
 npm install
-
-# 全局链接（可选）
-npm link
+npm run build
 ```
 
-### 初始化
+### 初始化配置
 
 ```bash
-# 初始化配置
-health-manager init
-
 # 设置个人信息
-health-manager config set user.name "张三"
-health-manager config set user.age 45
+health config init --name "张三" --age 45 --height 175 --weight 70
 ```
 
 ### 第一次记录
 
 ```bash
 # 记录血压
-health-manager record bp -s 120 -d 80 -p 72
-
-# 记录心率
-health-manager record hr --rate 68
+health bp add 120 80 --heart-rate 72 --notes "早晨测量"
 
 # 记录运动
-health-manager record ex --type running --duration 30
+health ex add running 30 --steps 5000 --calories 300
 
 # 记录用药
-health-manager record med --name "降压药" --dosage "1片"
+health med add "降压药" "1 片" --unit "片"
 ```
 
 ### 查看数据
 
 ```bash
-# 查看最近7天记录
-health-manager list --recent 7
+# 查看血压记录
+health bp list
 
-# 分析血压趋势
-health-manager analyze bp --period 30d
+# 查看血压趋势
+health bp trend 7
+
+# 生成日报
+health report daily
+
+# 查看健康状态概览
+health status
+```
+
+---
+
+## 功能特性
+
+### 📊 健康数据记录
+
+| 数据类型 | 支持字段 | 命令示例 |
+|---------|---------|---------|
+| 血压 | 收缩压、舒张压、心率、备注 | `health bp add 120 80 --heart-rate 72` |
+| 运动 | 类型、时长、步数、卡路里、距离 | `health ex add running 30 --steps 5000` |
+| 用药 | 药品名称、剂量、单位、备注 | `health med add "降压药" "1 片"` |
+
+### 📈 趋势分析
+
+- **血压趋势** - 7 天/30 天平均血压、心率统计
+- **运动统计** - 按类型、按时长、按步数统计
+- **异常检测** - 自动识别异常血压记录
+
+### ⏰ 智能提醒
+
+```bash
+# 添加用药提醒
+health reminder add medication "08:00" --message "该吃药了"
+
+# 添加血压监测提醒
+health reminder add bp_monitor "07:00"
+
+# 查看提醒列表
+health reminder list
+```
+
+### 📖 报告生成
+
+```bash
+# 生成日报
+health report daily --output daily.md
+
+# 生成周报
+health report weekly --output weekly.md
 
 # 生成健康手册
-health-manager handbook --period month
+health report handbook --output handbook.md
+```
+
+### 📁 数据管理
+
+```bash
+# 导出数据
+health data export blood_pressure --format csv --output bp.csv
+health data export-all ./backups
+
+# 导入数据
+health data import blood_pressure data.csv
+health data import exercise data.json
+
+# 查看数据库位置
+health data path
+```
+
+---
+
+## 完整命令参考
+
+### 血压管理 (`health bp`)
+
+```bash
+health bp add <收缩压> <舒张压> [选项]     # 添加血压记录
+health bp list [选项]                     # 查看血压记录
+health bp trend [天数]                    # 查看血压趋势
+health bp abnormal                        # 查看异常记录
+```
+
+### 运动管理 (`health ex`)
+
+```bash
+health ex add <类型> <时长> [选项]        # 添加运动记录
+health ex list [选项]                     # 查看运动记录
+health ex stats [天数]                    # 查看运动统计
+```
+
+### 用药管理 (`health med`)
+
+```bash
+health med add <名称> <剂量> [选项]       # 添加用药记录
+health med list [选项]                    # 查看用药记录
+health med today                          # 查看今日用药
+```
+
+### 报告生成 (`health report`)
+
+```bash
+health report daily [日期] [选项]         # 生成日报
+health report weekly [日期] [选项]        # 生成周报
+health report handbook [选项]             # 生成健康手册
+```
+
+### 配置管理 (`health config`)
+
+```bash
+health config list                        # 查看所有配置
+health config set <键> <值>               # 设置配置项
+health config init [选项]                 # 初始化用户配置
+```
+
+### 提醒管理 (`health reminder`)
+
+```bash
+health reminder list                      # 查看提醒
+health reminder add <类型> <时间> [选项]  # 添加提醒
+health reminder toggle <ID>               # 切换提醒状态
+health reminder init                      # 初始化默认提醒
 ```
 
 ---
 
 ## 技术栈
 
-### 核心技术
-
 - **运行时**: Node.js 18+
 - **语言**: TypeScript 5.0+
-- **CLI框架**: Commander.js
-- **数据处理**: Lodash, Date-fns
-- **图表生成**: Chart.js, QuickChart
-- **PDF生成**: Puppeteer, PDFKit
-
-### 数据存储
-
-- **本地存储**: JSON 文件
-- **数据导入**: XML (Apple Health), CSV
-- **数据导出**: JSON, CSV, PDF, HTML
-
-### 集成支持
-
-- **Apple Health**: XML 导入，自动同步
-- **Google Fit**: OAuth 认证，数据同步
-- **可穿戴设备**: 支持 Apple Watch、小米手环等数据导入
+- **CLI 框架**: Commander.js
+- **数据库**: SQLite (better-sqlite3)
+- **数据处理**: date-fns
+- **终端美化**: chalk, table
 
 ---
 
-## 使用示例
+## 数据结构
 
-### 场景一：日常血压监测
+### 血压记录
 
-```bash
-# 早晨测量后记录
-health-manager record bp -s 118 -d 78 -p 70 --notes "晨起测量"
-
-# 晚上测量后记录
-health-manager record bp -s 125 -d 82 -p 75 --notes "睡前测量"
-
-# 查看一周趋势
-health-manager analyze bp --period 7d --chart
-
-# 生成月度血压报告
-health-manager handbook bp --period month
+```typescript
+{
+  id: number;
+  systolic: number;      // 收缩压 (mmHg)
+  diastolic: number;     // 舒张压 (mmHg)
+  heart_rate?: number;   // 心率 (bpm)
+  recorded_at: string;   // 记录时间
+  notes?: string;        // 备注
+}
 ```
 
-### 场景二：运动记录
+### 运动记录
 
-```bash
-# 记录晨跑
-health-manager record ex \
-  --type running \
-  --duration 30 \
-  --distance 5.2 \
-  --calories 280
-
-# 记录游泳
-health-manager record ex \
-  --type swimming \
-  --duration 45 \
-  --calories 350
-
-# 查看本月运动统计
-health-manager analyze ex --period month
-
-# 查看运动目标完成情况
-health-manager report exercise --goals
+```typescript
+{
+  id: number;
+  type: string;              // 运动类型
+  duration_minutes: number;  // 时长 (分钟)
+  steps?: number;            // 步数
+  calories_burned?: number;  // 消耗 (千卡)
+  distance_km?: number;      // 距离 (公里)
+  recorded_at: string;       // 记录时间
+}
 ```
 
-### 场景三：用药管理
+### 用药记录
 
-```bash
-# 添加每日用药提醒
-health-manager remind add med \
-  --name "降压药" \
-  --time "08:00,20:00"
-
-# 记录服药
-health-manager record med --name "降压药" --taken
-
-# 查看用药记录
-health-manager list med --month
-
-# 用药提醒状态
-health-manager remind list
-```
-
-### 场景四：健康报告生成
-
-```bash
-# 生成月度健康手册
-health-manager handbook --period month --output ~/健康手册.pdf
-
-# 生成季度报告（HTML格式）
-health-manager handbook --period quarter --format html
-
-# 生成包含所有数据的年度总结
-health-manager handbook --period year --include all
+```typescript
+{
+  id: number;
+  name: string;        // 药物名称
+  dosage: string;      // 剂量
+  unit?: string;       // 单位
+  taken_at: string;    // 服药时间
+  notes?: string;      // 备注
+}
 ```
 
 ---
 
-## 目录结构
+## 血压参考标准
 
-```
-health-manager/
-├── bin/
-│   └── health-manager        # CLI 入口
-├── src/
-│   ├── commands/            # 命令实现
-│   │   ├── record.ts        # 记录命令
-│   │   ├── list.ts          # 查询命令
-│   │   ├── analyze.ts       # 分析命令
-│   │   ├── handbook.ts      # 手册生成
-│   │   └── remind.ts        # 提醒管理
-│   ├── models/              # 数据模型
-│   │   ├── blood-pressure.ts
-│   │   ├── heart-rate.ts
-│   │   ├── exercise.ts
-│   │   └── medication.ts
-│   ├── services/            # 业务逻辑
-│   │   ├── data-service.ts
-│   │   ├── analysis-service.ts
-│   │   ├── chart-service.ts
-│   │   └── notification-service.ts
-│   ├── utils/               # 工具函数
-│   └── config/               # 配置管理
-├── templates/               # 手册模板
-│   ├── handbook-pdf.hbs
-│   └── handbook-html.hbs
-├── tests/                   # 测试文件
-├── docs/                    # 文档
-│   ├── USER_GUIDE.md
-│   └── API.md
-├── package.json
-├── tsconfig.json
-└── README.md
-```
+| 分类 | 收缩压 (mmHg) | 舒张压 (mmHg) |
+|------|-------------|-------------|
+| 正常 | < 120 | < 80 |
+| 正常偏高 | 120-129 | < 80 |
+| 高血压前期 | 130-139 | 80-89 |
+| 高血压 1 级 | 140-159 | 90-99 |
+| 高血压 2 级 | ≥ 160 | ≥ 100 |
+
+---
+
+## 数据库位置
+
+默认存储在：`~/.config/health-manager/health.db`
+
+可以通过 `health data path` 命令查看具体路径。
+
+---
+
+## 安全说明
+
+- ✅ 所有数据本地存储，不上传云端
+- ✅ 无网络请求，保护隐私
+- ✅ 开源代码，可审计
+- ✅ npm audit 0 漏洞
 
 ---
 
 ## 开发指南
 
-### 环境准备
-
 ```bash
-# 安装开发依赖
+# 克隆仓库
+git clone https://github.com/harrylabs0913/health-manager.git
+cd health-manager
+
+# 安装依赖
 npm install
 
-# 运行测试
-npm test
-
-# 代码检查
-npm run lint
+# 开发模式
+npm run dev
 
 # 构建
 npm run build
+
+# 运行测试
+npm test
 ```
-
-### 添加新命令
-
-1. 在 `src/commands/` 创建命令文件
-2. 在 `bin/health-manager` 注册命令
-3. 添加对应的数据模型和服务
-4. 编写测试用例
-
-### 数据格式规范
-
-所有健康数据遵循统一的 JSON Schema，详见 [docs/DATA_SCHEMA.md](docs/DATA_SCHEMA.md)
 
 ---
 
@@ -299,19 +311,8 @@ npm run build
 
 ---
 
-## 致谢
-
-感谢以下开源项目：
-
-- [Commander.js](https://github.com/tj/commander.js) - CLI 框架
-- [Chart.js](https://www.chartjs.org/) - 图表库
-- [Date-fns](https://date-fns.org/) - 日期处理
-- [Puppeteer](https://pptr.dev/) - PDF 生成
-
----
-
 ## 联系方式
 
-- 项目主页: https://github.com/your-repo/health-manager
-- 问题反馈: https://github.com/your-repo/health-manager/issues
-- 邮箱: health-manager@example.com
+- 项目主页：https://github.com/harrylabs0913/health-manager
+- 问题反馈：https://github.com/harrylabs0913/health-manager/issues
+- Clawhub: https://clawhub.com/skills/health-manager
